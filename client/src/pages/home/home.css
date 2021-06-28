@@ -1,0 +1,12 @@
+.search_box {
+    box-shadow: rgb(0 0 0 / 15%) 2px 2px 8px, rgb(0 0 0 / 15%) -2px -2px 8px; 
+    padding: 20px; 
+    border-radius: 10px;
+    width: 400px;
+}
+
+@media screen and (max-width: 400px) {
+    .search_box {
+        width: 100%;
+    }
+}

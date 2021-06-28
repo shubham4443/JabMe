@@ -1,0 +1,26 @@
+{
+  "name": "covidrelief",
+  "version": "1.0.0",
+  "description": "App for help related to covid-19 pandemic",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "covid",
+    "covid-19",
+    "pandemic"
+  ],
+  "author": "Shubham Nazare",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
