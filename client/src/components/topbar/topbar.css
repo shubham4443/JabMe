@@ -1,0 +1,23 @@
+.topbar {
+    position: fixed;
+    width: 100%;
+    padding: 5px 20px;
+    box-shadow: rgb(0 0 0 / 15%) 2px 2px 8px, rgb(0 0 0 / 15%) -2px -2px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 10001;
+}
+
+.topbar_links {
+    position: absolute;
+    right: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .topbar_links {
+        position: static;
+        right: 0px;
+    }
+}
