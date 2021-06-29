@@ -1,4 +1,7 @@
 # JabMe
+
+[Click here to visit live project](http://13.232.77.199/)
+
 A COVID-19 Vaccine Notifier App which notifies whenever a slot becomes available. Easy to use and user-friendly interface. No signup or personal information such as mobile number and Aadhaar Card is required. Notification appears on the site itself.
 
 
