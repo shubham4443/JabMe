@@ -1,7 +1,7 @@
 import axios from "axios";
 import moment from "moment";
 
-axios.defaults.baseURL = "http://localhost:5000/api/v1";
+axios.defaults.baseURL = process.env.NODE_ENV === "production" ? "http://13.232.77.199:3000/api/v1" : "http://localhost:5000/api/v1";
 
 export const getStates = async () => {
     const { data } = await axios({
