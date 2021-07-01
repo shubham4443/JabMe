@@ -45,7 +45,6 @@ function Home({ onSearch }) {
   }
 
   const handleChangeState = async (state_id) => {
-    incrementPendingRequests();
     try {
       const data = await getDistricts(state_id);
       setDistricts(data.districts);
@@ -54,14 +53,11 @@ function Home({ onSearch }) {
     catch (err) {
       notify("error", "Error", "There is some error in fetching districts. Please try again later.")
     }
-    finally {
-      decrementPendingRequests();
-    }
   }
   
   return (
-    <div style={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-      <h2>Place a trigger for vaccine availability</h2>
+    <div className="home_content">
+      <h2 style={{ textAlign: "center" }}>Place a trigger for vaccine availability</h2>
       <div className="search_box">
         <Form
           form={form}

@@ -3,6 +3,16 @@
     padding: 20px; 
     border-radius: 10px;
     width: 400px;
+    margin-bottom: 10px;
+}
+
+.home_content {
+    display: flex; 
+    align-items: center; 
+    flex-direction: column;
+    margin-top: 75px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 @media screen and (max-width: 400px) {

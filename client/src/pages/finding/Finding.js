@@ -63,7 +63,7 @@ const Finding = ({ values, handleGoBack }) => {
     }, [values])
 
     return (
-        <div style={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+        <div style={{ marginTop: 90, width: "100%", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
             {found ? <Found onGoBack={() => handleGoBack()} /> : <Matching onGoBack={() => handleGoBack()}/>}
         </div>
     )
