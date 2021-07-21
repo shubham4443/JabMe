@@ -19,20 +19,23 @@ export const getDistricts = async (state_id) => {
     return data;   
 }
 
-export const getAvailabilityByPin = async (pincode) => {
+export const getAvailabilityByPin = async (pincode, filters, cancelToken) => {
+    console.log(filters)
     const date = moment().format("DD-MM-YYYY");
     const { data } = await axios({
-        url: `/availability/pin?pincode=${pincode}&date=${date}`,
-        method: `get`
+        url: `/availability/pin?pincode=${pincode}&date=${date}${filters}`,
+        method: `get`,
+        cancelToken
     })
     return data;
 }
 
-export const getAvailabilityByDistrict = async (districtCode) => {
+export const getAvailabilityByDistrict = async (districtCode, filters, cancelToken) => {
     const date = moment().format("DD-MM-YYYY");
     const { data } = await axios({
-        url: `/availability/district?district_id=${districtCode}&date=${date}`,
-        method: `get`
+        url: `/availability/district?district_id=${districtCode}&date=${date}${filters}`,
+        method: `get`,
+        cancelToken
     })
     return data;
 }

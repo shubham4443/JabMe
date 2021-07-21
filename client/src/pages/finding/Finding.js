@@ -5,6 +5,7 @@ import { LoadingOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useDocumentTitle } from "../../utils";
 import Sound from 'react-sound';
 import bell_ring from "../../assets/bell_ring.aac";
+import axios from "axios";
 
 const Found = ({ onGoBack }) => {
     useDocumentTitle("Slot Found!");
@@ -42,10 +43,17 @@ const Matching = ({ onGoBack }) => {
 
 const Finding = ({ values, handleGoBack }) => {
     const [found, setFound] = useState(false);
+    
+    let filters = "";
+    if (values.age) filters += `&age=${values.age}`;
+    if (values.cost) filters += `&cost=${values.cost}`;
+    if (values.vaccine) filters += `&vaccine=${values.vaccine}`
+
+    const cancelTokenSource = axios.CancelToken.source();
 
     useEffect(() => {
         if (values.method === "pincode") {
-            getAvailabilityByPin(values.pincode)
+            getAvailabilityByPin(values.pincode, filters, cancelTokenSource.token)
                 .then(({ available }) => {
                     if (available) {
                         setFound(true);
@@ -53,18 +61,18 @@ const Finding = ({ values, handleGoBack }) => {
                 })
         }
         else if (values.method === "district") {
-            getAvailabilityByDistrict(values.district)
+            getAvailabilityByDistrict(values.district, filters, cancelTokenSource.token)
                 .then(({ available }) => {
                     if (available) {
                         setFound(true);
                     }
                 })
         }
-    }, [values])
+    }, [values, filters, cancelTokenSource])
 
     return (
         <div style={{ marginTop: 90, width: "100%", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-            {found ? <Found onGoBack={() => handleGoBack()} /> : <Matching onGoBack={() => handleGoBack()}/>}
+            {found ? <Found onGoBack={() => handleGoBack()} /> : <Matching onGoBack={() => {handleGoBack();cancelTokenSource.cancel()}}/>}
         </div>
     )
 }

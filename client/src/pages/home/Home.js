@@ -2,7 +2,8 @@ import "./home.css";
 import { useState, useEffect } from "react";
 import { getDistricts, getStates } from "../../services";
 import { incrementPendingRequests, decrementPendingRequests, notify } from "../../utils";
-import { Tabs, Form, Input, Button, Select, Collapse } from 'antd';
+import { Tabs, Form, Input, Button, Select, Collapse, Checkbox, Radio } from 'antd';
+import ConditionalFormBlock from "../../components/conditional-form-block/ConditionalFormBlock";
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 
@@ -30,13 +31,13 @@ function Home({ onSearch }) {
 
   const handleSearch = () => {
     if (method === "pincode") {
-      form.validateFields(["pincode"]).then(values => {
+      form.validateFields(["pincode", "age", "cost", "vaccine"]).then(values => {
         values["method"] = "pincode";
         onSearch(values);
       })
     }
     else {
-      form.validateFields(["state", "district"]).then(values => {
+      form.validateFields(["state", "district", "age", "cost", "vaccine"]).then(values => {
         values["method"] = "district";
         delete values.state;
         onSearch(values);
@@ -53,6 +54,10 @@ function Home({ onSearch }) {
     catch (err) {
       notify("error", "Error", "There is some error in fetching districts. Please try again later.")
     }
+  }
+
+  const resetFilters = () => {
+    form.resetFields(["age", "cost", "vaccine"])
   }
   
   return (
@@ -82,6 +87,31 @@ function Home({ onSearch }) {
               </Form.Item>
             </TabPane>
           </Tabs>
+          <Form.Item name="applyFilters" valuePropName="checked">
+            <Checkbox onChange={resetFilters}>Apply Filters</Checkbox>
+          </Form.Item>
+          <ConditionalFormBlock shouldUpdate={true} condition={() => form.getFieldValue("applyFilters")}>
+            <Form.Item name="age" label="Age">
+              <Radio.Group buttonStyle="solid">
+                <Radio.Button value="18+">18 & Above</Radio.Button>
+                <Radio.Button value="18-45">18-45 Only</Radio.Button>
+                <Radio.Button value="45+">45 & Above</Radio.Button>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item name="cost" label="Cost">
+              <Radio.Group buttonStyle="solid">
+                <Radio.Button value="Paid">Paid</Radio.Button>
+                <Radio.Button value="Free">Free</Radio.Button>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item name="vaccine" label="Vaccine">
+              <Radio.Group buttonStyle="solid">
+                <Radio.Button value="COVISHIELD">Covishield</Radio.Button>
+                <Radio.Button value="COVAXIN">Covaxin</Radio.Button>
+                <Radio.Button value="sputnik">Sputnik V</Radio.Button>
+              </Radio.Group>
+            </Form.Item>
+          </ConditionalFormBlock>
           <Form.Item style={{ textAlign: "center", margin: 0 }}>
             <Button type="primary" onClick={handleSearch}>Search</Button>
           </Form.Item>
